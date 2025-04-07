@@ -11,10 +11,21 @@ export default function ArticleContainer(
   props: ArticleContainerProps
 ): JSX.Element {
   return (
-    <div className="article-container">
-      {props.articles.map((article, index) => (
-        <Article key={index} article={article}></Article>
-      ))}
-    </div>
+    <>
+      {props.articles.length === 0 ? (
+        <div className="no-article-text">
+          <span>Lancez la recherche pour voir les articles.</span>
+        </div>
+      ) : (
+        <div className="content">
+          <span>{props.articles.length} résultat(s).</span>
+          <div className="article-container">
+            {props.articles.map((article, index) => (
+              <Article key={index} article={article}></Article>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
 }

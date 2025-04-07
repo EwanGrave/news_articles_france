@@ -4,13 +4,14 @@ import ArticleContainer from "./components/articles/articlecontainer/ArticleCont
 import { JSX, useState } from "react";
 import React from "react";
 import { ArticleType } from "./types/ArticleType";
-import { ArticleService } from "./services/ArticlesService";
+import { ArticleService } from "./services/ArticleService";
+import Footer from "./components/footer/Footer";
 
 function App(): JSX.Element {
   const [articles, setArticles] = useState<ArticleType[]>([]);
 
-  function getArticles(search: string = ""): void {
-    const res = ArticleService.getArticles(search);
+  async function getArticles(search: string = ""): Promise<void> {
+    const res = await ArticleService.getArticles(search);
     setArticles(res);
   }
 
@@ -19,6 +20,7 @@ function App(): JSX.Element {
       <Header></Header>
       <Searchbar onSearch={getArticles}></Searchbar>
       <ArticleContainer articles={articles}></ArticleContainer>
+      <Footer></Footer>
     </>
   );
 }
