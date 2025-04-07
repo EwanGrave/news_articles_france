@@ -1,10 +1,10 @@
 export type ArticlesRequestType = {
   status: string;
   totalResults: number;
-  articles: ArticlesType[];
+  articles: ArticleType[];
 };
 
-export type ArticlesType = {
+export type ArticleType = {
   source: SourceType;
   author: string;
   title: string;

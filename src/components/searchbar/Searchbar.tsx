@@ -2,13 +2,15 @@ import React, { JSX, useEffect, useState } from "react";
 import "./Searchbar.css";
 import { Button, Form, Input } from "antd";
 
-export default function Searchbar(): JSX.Element {
-  const [search, setSearch] = useState<string>();
+interface SearchbarProps {
+  onSearch: (search: string) => void;
+}
 
-  useEffect(() => {}, [search]);
+export default function Searchbar(props: SearchbarProps): JSX.Element {
+  const [search, setSearch] = useState<string>("");
 
   function onSubmit(): void {
-    console.log(search);
+    props.onSearch(search);
   }
 
   function handleSearch(event: React.FormEvent<HTMLInputElement>): void {
