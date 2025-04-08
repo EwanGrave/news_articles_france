@@ -9,6 +9,17 @@ interface ArticleProps {
 }
 
 export default function Article(props: ArticleProps): JSX.Element {
+  function getFormattedDate(): string {
+    const date = new Date(props.article.publishedAt);
+    return date.toLocaleDateString("fr-FR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    });
+  }
+
   return (
     <div className="article">
       <Card
@@ -22,7 +33,14 @@ export default function Article(props: ArticleProps): JSX.Element {
               {props.article.title}
             </a>
           }
-          description={props.article.description}
+          description={
+            <div className="article-desc">
+              <div>
+                {props.article.source.name}, le {getFormattedDate()}
+              </div>
+              <div>{props.article.description}</div>
+            </div>
+          }
         />
       </Card>
     </div>
