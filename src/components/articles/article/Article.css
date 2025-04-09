@@ -2,6 +2,10 @@
   height: 100%;
 }
 
+.article-card img {
+  max-height: 250px;
+}
+
 .article-desc div:first-of-type {
   margin-bottom: 5px;
   font-weight: 500;
