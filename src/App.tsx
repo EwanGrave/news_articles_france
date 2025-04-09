@@ -6,20 +6,41 @@ import React from "react";
 import { ArticleType } from "./types/ArticleType";
 import { ArticleService } from "./services/ArticleService";
 import Footer from "./components/footer/Footer";
+import { Spin } from "antd";
+import "./App.css";
 
 function App(): JSX.Element {
   const [articles, setArticles] = useState<ArticleType[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>();
 
   async function getArticles(search: string = ""): Promise<void> {
-    const res = await ArticleService.getArticles(search);
-    setArticles(res);
+    setIsLoading(true);
+    setError(undefined);
+    try {
+      const res = await ArticleService.getArticles(search);
+      setArticles(res);
+    } catch (error) {
+      if (error instanceof Error) setError(error.message);
+    }
+    setIsLoading(false);
   }
 
   return (
     <>
       <Header></Header>
       <Searchbar onSearch={getArticles}></Searchbar>
-      <ArticleContainer articles={articles}></ArticleContainer>
+
+      {error && <div className="error">{error}</div>}
+
+      {!isLoading ? (
+        <ArticleContainer articles={articles}></ArticleContainer>
+      ) : (
+        <div className="loading-spin">
+          <Spin size="large" />
+        </div>
+      )}
+
       <Footer></Footer>
     </>
   );
