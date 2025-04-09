@@ -14,11 +14,14 @@ function App(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | undefined>();
 
-  async function getArticles(search: string = ""): Promise<void> {
+  async function getArticles(
+    domains: string[],
+    search: string = ""
+  ): Promise<void> {
     setIsLoading(true);
     setError(undefined);
     try {
-      const res = await ArticleService.getArticles(search);
+      const res = await ArticleService.getArticles(domains, search);
       setArticles(res);
     } catch (error) {
       if (error instanceof Error) setError(error.message);
