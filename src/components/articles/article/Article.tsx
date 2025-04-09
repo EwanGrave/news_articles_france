@@ -1,7 +1,7 @@
 import React, { JSX } from "react";
 import "./Article.css";
 import { ArticleType } from "../../../types/ArticleType";
-import { Card } from "antd";
+import { Card, Tooltip } from "antd";
 import Meta from "antd/es/card/Meta";
 
 interface ArticleProps {
@@ -29,9 +29,11 @@ export default function Article(props: ArticleProps): JSX.Element {
       >
         <Meta
           title={
-            <a href={props.article.url} target="_BLANK">
-              {props.article.title}
-            </a>
+            <Tooltip title={props.article.title} placement="topLeft">
+              <a href={props.article.url} target="_BLANK">
+                {props.article.title}
+              </a>
+            </Tooltip>
           }
           description={
             <div className="article-desc">
